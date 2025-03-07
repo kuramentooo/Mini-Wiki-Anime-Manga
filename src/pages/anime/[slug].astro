@@ -1,5 +1,13 @@
 ---
-import { getAnimeBySlug } from '../../utils/data';
+import { getAnimeBySlug, getAllAnimes } from '../../utils/data';
+
+export async function getStaticPaths() {
+  const animes = getAllAnimes();
+  return animes.map(anime => ({
+    params: { slug: anime.slug }
+  }));
+}
+
 const { slug } = Astro.params;
 const anime = await getAnimeBySlug(slug);
 ---
