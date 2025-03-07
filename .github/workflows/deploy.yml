@@ -1,34 +1,58 @@
-name: Deploy Wiki Anime
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Cloner le repo
-        uses: actions/checkout@v3
-
-      - name: Installer Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-
-      - name: Installer les dépendances
-        run: npm install
-
-      - name: Générer le site statique
+          node-version: '20'
+      
+      - name: Generate package-lock.json
+        run: npm install --package-lock-only
+      
+      - name: Setup dependency caching
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build project
         run: npm run build
-
-      - name: Déployer sur GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
-          allow_empty_commit: true
-          force_orphan: true
-          user_name: kuramentooo
-          user_email: kuramentooo@users.noreply.github.com
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
