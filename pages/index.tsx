@@ -34,33 +34,33 @@ const Home: React.FC<HomeProps> = ({ animes }) => {
   };
 
   return (
-    <div className="container mx-auto">
-      <header className="bg-blue-500 text-white p-4">
-        <h1 className="text-4xl font-bold">Mini Wiki Anime/Manga</h1>
+    <div className="flex flex-col min-h-screen">
+      <header className="bg-blue-600 text-white p-4 shadow-md">
+        <h1 className="text-4xl font-bold text-center">Mini Wiki Anime/Manga</h1>
       </header>
-      <main className="p-8">
+      <main className="flex-grow p-8 bg-gray-100">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {animes.map((anime) => (
             <div
               key={anime.title}
-              className="border p-4 rounded-lg cursor-pointer"
+              className="border p-4 rounded-lg cursor-pointer bg-white shadow-md hover:shadow-lg transition-shadow duration-300"
               onClick={() => handleAnimeClick(anime)}
             >
-              <img src={anime.image} alt={anime.title} className="w-full h-48 object-cover mb-4" />
+              <img src={anime.image} alt={anime.title} className="w-full h-48 object-cover mb-4 rounded" />
               <h2 className="text-2xl font-bold mb-2">{anime.title}</h2>
-              <p className="mb-2">{anime.synopsis}</p>
+              <p className="mb-2 text-gray-700">{anime.synopsis}</p>
             </div>
           ))}
         </div>
 
         {selectedAnime && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg max-w-lg w-full">
+            <div className="bg-white p-8 rounded-lg max-w-lg w-full shadow-lg">
               <button className="mb-4 text-red-500" onClick={handleCloseModal}>
                 Fermer
               </button>
               <h2 className="text-2xl font-bold mb-4">{selectedAnime.title}</h2>
-              <img src={selectedAnime.image} alt={selectedAnime.title} className="w-full h-48 object-cover mb-4" />
+              <img src={selectedAnime.image} alt={selectedAnime.title} className="w-full h-48 object-cover mb-4 rounded" />
               <p className="mb-4">{selectedAnime.synopsis}</p>
               <p><strong>Genres:</strong> {selectedAnime.genres.join(', ')}</p>
               <p><strong>Studio:</strong> {selectedAnime.studio}</p>
@@ -75,7 +75,7 @@ const Home: React.FC<HomeProps> = ({ animes }) => {
           </div>
         )}
       </main>
-      <footer className="bg-blue-500 text-white p-4 text-center">
+      <footer className="bg-blue-600 text-white p-4 text-center shadow-md">
         <p>© 2023 Mini Wiki Anime/Manga</p>
         <p>
           <a href="https://github.com/kuramentooo" className="text-white underline" target="_blank" rel="noopener noreferrer">
