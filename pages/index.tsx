@@ -3,6 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { useState } from 'react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 interface Anime {
   title: string;
@@ -34,9 +36,7 @@ const Home: React.FC<HomeProps> = ({ animes }) => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-white p-4 shadow-md">
-        <h1 className="text-4xl font-bold text-center">Mini Wiki Anime/Manga</h1>
-      </header>
+      <Header />
       <main className="flex-grow p-8 bg-gray-100">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {animes.map((anime) => (
@@ -74,14 +74,7 @@ const Home: React.FC<HomeProps> = ({ animes }) => {
           </div>
         )}
       </main>
-      <footer className="bg-primary text-white p-4 text-center shadow-md">
-        <p>© 2023 Mini Wiki Anime/Manga</p>
-        <p>
-          <a href="https://github.com/kuramentooo" className="text-white underline" target="_blank" rel="noopener noreferrer">
-            GitHub: kuramentooo
-          </a>
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 };
