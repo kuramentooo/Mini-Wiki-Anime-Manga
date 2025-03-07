@@ -1,0 +1,85 @@
+---
+import { getAllAnimes } from '../utils/data';
+const animes = await getAllAnimes();
+---
+
+<html>
+  <head>
+    <title>Mini Wiki Anime/Manga</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        color: #333;
+      }
+      header {
+        background-color: #4a90e2;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+      footer {
+        background-color: #4a90e2;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+      }
+      .card {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .card img {
+        max-width: 100%;
+        border-radius: 4px;
+      }
+      .card h2 {
+        font-size: 1.25rem;
+        margin: 0.5rem 0;
+      }
+      .card p {
+        font-size: 0.875rem;
+        color: #666;
+      }
+      .card a {
+        display: inline-block;
+        margin-top: 0.5rem;
+        color: #4a90e2;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Mini Wiki Anime/Manga</h1>
+      <input type="text" placeholder="Rechercher..." />
+      <!-- ...filtres dynamiques... -->
+    </header>
+    <main>
+      <div class="grid">
+        {animes.map(anime => (
+          <div class="card">
+            <img src={anime.coverImage} alt={anime.title} />
+            <h2>{anime.title}</h2>
+            <p>{anime.synopsis}</p>
+            <a href={`/anime/${anime.slug}`}>Voir plus</a>
+          </div>
+        ))}
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2023 Mini Wiki Anime/Manga. Tous droits réservés.</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+---
+import { getAnimeBySlug } from '../../utils/data';
+const { slug } = Astro.params;
+const anime = await getAnimeBySlug(slug);
+---
+
+<html>
+  <head>
+    <title>{anime.title} - Mini Wiki Anime/Manga</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        color: #333;
+      }
+      header {
+        background-color: #4a90e2;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+      footer {
+        background-color: #4a90e2;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+      }
+      main {
+        padding: 1rem;
+      }
+      img {
+        max-width: 100%;
+        border-radius: 8px;
+      }
+      h1 {
+        font-size: 2rem;
+        margin: 1rem 0;
+      }
+      p {
+        font-size: 1rem;
+        color: #666;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin: 0.5rem 0;
+      }
+      a {
+        color: #4a90e2;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>{anime.title}</h1>
+      <a href={anime.link}>Voir sur MyAnimeList/AniList</a>
+    </header>
+    <main>
+      <img src={anime.coverImage} alt={anime.title} />
+      <p>{anime.synopsis}</p>
+      <ul>
+        <li>Genres: {anime.genres.join(', ')}</li>
+        <li>Année de sortie: {anime.year}</li>
+        <li>Studio: {anime.studio}</li>
+        <li>Nombre d'épisodes: {anime.episodes}</li>
+        <li>Statut: {anime.status}</li>
+        <li>Note moyenne: {anime.rating}</li>
+      </ul>
+    </main>
+    <footer>
+      <p>&copy; 2023 Mini Wiki Anime/Manga. Tous droits réservés.</p>
+    </footer>
+  </body>
+</html>
