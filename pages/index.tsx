@@ -35,7 +35,7 @@ const Home: React.FC<HomeProps> = ({ animes }) => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-blue-600 text-white p-4 shadow-md">
+      <header className="bg-primary text-white p-4 shadow-md">
         <h1 className="text-4xl font-bold text-center">Mini Wiki Anime/Manga</h1>
       </header>
       <main className="flex-grow p-8 bg-gray-100">
@@ -68,14 +68,14 @@ const Home: React.FC<HomeProps> = ({ animes }) => {
               <p><strong>Nombre d’épisodes:</strong> {selectedAnime.episodes}</p>
               <p><strong>Statut:</strong> {selectedAnime.statut}</p>
               {selectedAnime.note && <p><strong>Note:</strong> ⭐ {selectedAnime.note}</p>}
-              <a href={selectedAnime.mal_link} className="text-blue-500" target="_blank" rel="noopener noreferrer">
+              <a href={selectedAnime.mal_link} className="text-primary" target="_blank" rel="noopener noreferrer">
                 Voir sur MyAnimeList
               </a>
             </div>
           </div>
         )}
       </main>
-      <footer className="bg-blue-600 text-white p-4 text-center shadow-md">
+      <footer className="bg-primary text-white p-4 text-center shadow-md">
         <p>© 2023 Mini Wiki Anime/Manga</p>
         <p>
           <a href="https://github.com/kuramentooo" className="text-white underline" target="_blank" rel="noopener noreferrer">
